@@ -1,0 +1,30 @@
+﻿@using todolistapp.Models
+@model task
+@{
+    ViewBag.Title = "Update";
+}
+
+<hr />
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @Html.TextBoxFor(a => a.todotext, new { @class = "form-control", placeholder = "Todo" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(a => a.tododate, new { @class = "form-control", placeholder = "Date" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Update</button>
+        </div>
+    }
+</div>
+
+<div>
+    @if (ViewBag.IsSuccess != null)
+    {
+        <span class="alert alert-danger">Updated is success!</span>
+
+    }
+</div>

@@ -1,0 +1,89 @@
+﻿@using todolistapp.Models
+@model List<task>
+@{
+    ViewBag.Title = "List";
+}
+
+<hr />
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>To Do</th>
+                <th>Date</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (task item in Model)
+            {
+                <tr>
+
+                    <td>@item.todotext</td>
+                    <td>@item.tododate</td>
+                    <td>@Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })</td>
+                    <td>@Html.ActionLink("Update", "Update", new { id = item.id }, new { @class = "btn btn-info" })</td>
+                </tr>
+            }
+        </tbody>
+        <div>
+            @Html.ActionLink("Add Todo", "Create", null, new { @class = "btn btn-success" })
+        </div>
+    </table>
+</div>
+
+@section scripts{
+
+    <script>
+
+        var tasklist = [];
+
+        @foreach (task item in Model)
+        {
+           <text>
+        var task = {
+            id: '@item.id',
+            text: '@item.todotext',
+            date: '@item.tododate'
+
+
+        }
+        tasklist.push(task);
+
+        </text>
+        }
+        setInterval(function () {
+            for (var i = 0; i < tasklist.length; i++) {
+                var currentdate = new Date();
+                var day = currentdate.getDate();
+                var month = currentdate.getMonth() + 1;
+                var year = currentdate.getFullYear();
+
+                var hour = currentdate.getHours();
+                if (String(hour).length == 1) {
+                    hour = "0" + hour;
+                }
+                var minute = currentdate.getMinutes();
+                if (String(minute).length == 1) {
+                    minute = "0" + minute;
+                }
+                var second = currentdate.getSeconds();
+                if (String(month).length == 1) {
+                    month = "0" + month;
+                }
+                if (String(second).length == 1) {
+                    second = "0" + second;
+                }
+                var datetime = day + "." + month + "." + year + " " + hour + ":" + minute + ":" + second;
+                if (tasklist[i].date == datetime) {
+
+                    alert("It is time to :" + tasklist[i].text);
+                }
+            }
+        }, 1000);
+    </script>
+}
+
+
+
+
